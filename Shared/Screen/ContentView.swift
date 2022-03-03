@@ -27,6 +27,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                //Color.clear를 사용해 INFO FANEL이 ZStack 영역의 TOP부분으로 나오게 함
+                Color.clear
                 //MARK: - PAGE IMAGE
                 Image("magazine-front-cover")
                     .resizable()
@@ -73,6 +75,11 @@ struct ContentView: View {
                     isAnimating = true
                 }
             })
+            //MARK: - INFO PANEL
+            .overlay(
+             InfoPanelView(scale: imageScale, offset: imageOffset)
+             , alignment: .top
+            )
         }
         .navigationViewStyle(.stack) // 아이패드에서 사이드바를 제공하지 않음
     }
