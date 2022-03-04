@@ -13,7 +13,10 @@ struct ContentView: View {
     @State private var isAnimating: Bool = false
     @State private var imageScale: CGFloat = 1
     @State private var imageOffset: CGSize = .zero
-    @State private var isDrawerOpen: Bool = false
+    @State private var isDrawerOpen: Bool = true
+    
+    let pages: [Page] = pagesData
+    @State private var pageIndex: Int = 1
     //MARK: - FUNCTION
     func resetImageState() {
         withAnimation(.spring()) {
@@ -22,6 +25,9 @@ struct ContentView: View {
         }
     }
     
+    func currentPage() -> String {
+        return pages[pageIndex - 1].imageName
+    }
     //MARK: - CONTENT
     
     var body: some View {
@@ -30,7 +36,7 @@ struct ContentView: View {
                 //Color.clear를 사용해 INFO FANEL이 ZStack 영역의 TOP부분으로 나오게 함
                 Color.clear
                 //MARK: - PAGE IMAGE
-                Image("magazine-front-cover")
+                Image(currentPage())
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(10)
@@ -91,9 +97,7 @@ struct ContentView: View {
             .navigationTitle("Pinch & Zoom")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear(perform: {
-                withAnimation(.linear(duration: 1)) {
                     isAnimating = true
-                }
             })
             //MARK: - INFO PANEL
             .overlay(
@@ -162,16 +166,32 @@ struct ContentView: View {
                                 isDrawerOpen.toggle()
                             }
                         })
+                    
+                    ForEach(pages) { item in
+                        Image(item.thumbnailName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                            .opacity(isDrawerOpen ? 1 : 0)
+                            .animation(.easeOut(duration: 0.5), value: isDrawerOpen)
+                            .onTapGesture(perform: {
+                                isAnimating = true
+                                pageIndex = item.id
+                            })
+                    }
+                    
                     Spacer()
                 }//: DRAWER
-                    //MARK: - THUMBNAILS
-                        .padding(EdgeInsets(top: 15, leading: 8, bottom: 15, trailing: 8))
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10))
-                        .opacity(isAnimating ? 1 : 0)
-                        .frame(width: 250)
-                   // bounds.height : 화면 크게에 따라 달라지는 실제 화면 높이를 반환함
+                //MARK: - THUMBNAILS
+                    .padding(EdgeInsets(top: 15, leading: 8, bottom: 15, trailing: 8))
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10))
+                    .opacity(isAnimating ? 1 : 0)
+                    .frame(width: 250)
+                // bounds.height : 화면 크게에 따라 달라지는 실제 화면 높이를 반환함
                     .padding(.top, UIScreen.main.bounds.height / 13)
-                    .offset(x: isDrawerOpen ? 20 : 200)
+                    .offset(x: isDrawerOpen ? 20 : 205)
                 ,alignment: .topTrailing
             )
         }
