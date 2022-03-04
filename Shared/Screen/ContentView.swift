@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var isAnimating: Bool = false
     @State private var imageScale: CGFloat = 1
     @State private var imageOffset: CGSize = .zero
+    @State private var isDrawerOpen: Bool = false
     //MARK: - FUNCTION
     func resetImageState() {
         withAnimation(.spring()) {
@@ -45,9 +46,9 @@ struct ContentView: View {
                                 imageScale = 5
                             }
                         } else {
-                           /* withAnimation(.spring()) {
-                                imageScale = 1
-                            }  */
+                            /* withAnimation(.spring()) {
+                             imageScale = 1
+                             }  */
                             resetImageState()
                         }
                     })
@@ -67,23 +68,23 @@ struct ContentView: View {
                     )
                 //MARK: - 3. MAGNIFICATION
                     .gesture(
-                     MagnificationGesture()
-                        .onChanged { value in
-                            withAnimation(.linear(duration: 1)) {
-                                if imageScale >= 1 && imageScale <= 5 {
-                                    imageScale = value
-                                } else if imageScale > 5 {
-                                    imageScale = 5
+                        MagnificationGesture()
+                            .onChanged { value in
+                                withAnimation(.linear(duration: 1)) {
+                                    if imageScale >= 1 && imageScale <= 5 {
+                                        imageScale = value
+                                    } else if imageScale > 5 {
+                                        imageScale = 5
+                                    }
                                 }
                             }
-                        }
-                        .onEnded { _ in
-                            if imageScale > 5 {
-                                imageScale = 5
-                            } else if imageScale <= 1 {
-                                resetImageState()
+                            .onEnded { _ in
+                                if imageScale > 5 {
+                                    imageScale = 5
+                                } else if imageScale <= 1 {
+                                    resetImageState()
+                                }
                             }
-                        }
                     )
                 
             } //: ZStack
@@ -96,10 +97,10 @@ struct ContentView: View {
             })
             //MARK: - INFO PANEL
             .overlay(
-             InfoPanelView(scale: imageScale, offset: imageOffset)
-                .padding(.horizontal)
-                .padding(.top, 30)
-             , alignment: .top
+                InfoPanelView(scale: imageScale, offset: imageOffset)
+                    .padding(.horizontal)
+                    .padding(.top, 30)
+                , alignment: .top
             )
             //MARK: - CONTROLS
             .overlay(
@@ -145,6 +146,33 @@ struct ContentView: View {
                     .opacity(isAnimating ? 1 : 0)
                 }
                     .padding(.bottom, 30), alignment: .bottom
+            )
+            //MARK: - DRAWER
+            .overlay(
+                HStack(spacing: 10) {
+                    //MARK: - DRAWER HANDLE
+                    Image(systemName: isDrawerOpen ? "chevron.compact.right" : "chevron.compact.left")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 40)
+                        .padding(10)
+                        .foregroundColor(.secondary)
+                        .onTapGesture(perform: {
+                            withAnimation(.easeOut) {
+                                isDrawerOpen.toggle()
+                            }
+                        })
+                    Spacer()
+                }//: DRAWER
+                    //MARK: - THUMBNAILS
+                        .padding(EdgeInsets(top: 15, leading: 8, bottom: 15, trailing: 8))
+                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10))
+                        .opacity(isAnimating ? 1 : 0)
+                        .frame(width: 250)
+                   // bounds.height : 화면 크게에 따라 달라지는 실제 화면 높이를 반환함
+                    .padding(.top, UIScreen.main.bounds.height / 13)
+                    .offset(x: isDrawerOpen ? 20 : 200)
+                ,alignment: .topTrailing
             )
         }
         .navigationViewStyle(.stack) // 아이패드에서 사이드바를 제공하지 않음
