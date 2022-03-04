@@ -28,6 +28,7 @@ struct InfoPanelView: View {
                         isInfoPanelVisible.toggle()
                     }
                 }
+                .padding(.leading, 5)
             Spacer()
             
             //MARK: - INFO PANEL

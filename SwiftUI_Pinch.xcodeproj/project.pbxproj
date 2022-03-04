@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C21AA9A27D295FB00BCEE37 /* ControlImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C21AA9927D295FB00BCEE37 /* ControlImageView.swift */; };
 		6CAC2FA527D0FAA60011EFB1 /* InfoPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAC2FA427D0FAA60011EFB1 /* InfoPanelView.swift */; };
 		6CB0F7CF27D0ED34001A5DDC /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB0F7CE27D0ED34001A5DDC /* Tests_iOS.swift */; };
 		6CB0F7D127D0ED34001A5DDC /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB0F7D027D0ED34001A5DDC /* Tests_iOSLaunchTests.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6C21AA9927D295FB00BCEE37 /* ControlImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlImageView.swift; sourceTree = "<group>"; };
 		6CAC2FA427D0FAA60011EFB1 /* InfoPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPanelView.swift; sourceTree = "<group>"; };
 		6CB0F7B627D0ED32001A5DDC /* SwiftUI_PinchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_PinchApp.swift; sourceTree = "<group>"; };
 		6CB0F7B727D0ED32001A5DDC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				6CAC2FA427D0FAA60011EFB1 /* InfoPanelView.swift */,
+				6C21AA9927D295FB00BCEE37 /* ControlImageView.swift */,
 				6CB0F7B627D0ED32001A5DDC /* SwiftUI_PinchApp.swift */,
 			);
 			name = View;
@@ -334,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C21AA9A27D295FB00BCEE37 /* ControlImageView.swift in Sources */,
 				6CB0F7E027D0ED34001A5DDC /* ContentView.swift in Sources */,
 				6CB0F7DE27D0ED34001A5DDC /* SwiftUI_PinchApp.swift in Sources */,
 				6CAC2FA527D0FAA60011EFB1 /* InfoPanelView.swift in Sources */,
